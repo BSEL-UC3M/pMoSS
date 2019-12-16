@@ -23,8 +23,6 @@ The following figure illustrates a common output of the method. Here the cell bo
 This package is tested on Python 3.6 and 3.7.
 The code can be used either in a local machine or in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb#recent=true). 
 
-Please, note that the software is not implemented for GPU so Monte Carlo cross-validation takes quite a long time. The user can target the process by observing for a certain **n**-value, when a entire cross-validation has finished. 
-
 ### Local Machine
 You need to have Python installed previously. For non-expert users, it is highly recommended to download the [Anaconda distribution](https://www.continuum.io/downloads) of Python to obtain the dependencies easily. 
 
@@ -108,6 +106,15 @@ Python version and packages:
 
 ## Examples
 You can find examples of data analysis in the example folder. A Google Colab notebook is provided for a quick test.
+
+Please, note that the software is not implemented for GPU so Monte Carlo cross-validation takes quite a long time. The user can target the process by observing for a certain **n**-value, when a entire cross-validation has finished. 
+
+Get the latest version of the code in the [Releases](https://github.com/BIIG-UC3M/pMoSS/releases). There you will find a data.zip file which contains the estimated *p-values* of the examples:
+
+- *p-values* for the morphology changes with the increase of cellular age.
+- *p-values* for the morphology changes in cancer cells and their protrusions after being treated with Taxol.
+
+To avoid heavy computations and make a quick test of the code, download the data. Then, place it into the folder of the cloned repository, so the links in the notebooks work properly. Otherwise, change the links in the notebooks.
 
 ## Feedback and contributions
 - All kind of feedback is welcome. Specially if it supports the use of the code and a better understanding on how to work with it.
