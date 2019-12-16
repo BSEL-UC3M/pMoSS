@@ -1,0 +1,10 @@
+numpy
+scipy>=1.1.0
+pandas
+matplotlib
+xlrd>=1.0.0
+seaborn
+statsmodels>=0.9.0
+glob
+shutil
+os
