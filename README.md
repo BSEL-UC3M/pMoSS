@@ -130,9 +130,8 @@ Python version and packages:
 * xlrd>=1.0.0
 * seaborn
 * statsmodels>=0.9.0
-* glob
-* shutil
-* os
+* glob2
+* pytest-shutil
 
 ## Examples
 You can find examples of data analysis in the example folder. A Google Colab notebook is provided for a quick test.
