@@ -59,7 +59,9 @@ jupyter notebook
 In Jupyter, you have access to the directories in your local machine. Open the notebook in the examples and run the code written on it. 
 
 ### Google Colab
-Open the notebook of the examples in Google Colab and add the following code lines at the beginning:
+Open the notebook of the examples in Google Colab (File -> Open notebook... -> GitHub -> URL to the notebook). Note that you need to save a copy of this notebook in your drive to keep any change (File -> Save a copy in Drive)
+
+Add the following code lines at the beginning of the notebook:
 
 - If the code and data are located in your drive, then you need to mount it so Google Colab can access to your private files. Otherwise, you can skip this step. 
 
@@ -75,10 +77,9 @@ drive.mount('/content/drive')
 ```shell
 !pip install -r /content/pMoSS/requirements.txt
 ````
+- Modify the first line of the notebook indicating the correct path: 
 
-- Modify the first line of the notebook indicating the correct path. 
-
-  - If you clone the repository:
+  - If you cloned the repository:
     ```shell
     # Load the path containing all the functions to use pMoSS
     from sys import path
@@ -90,11 +91,27 @@ drive.mount('/content/drive')
     from sys import path
     path.append('/content/drive/My Drive/the_path_in_your_drive/pMoSS/pMoSS/')
     ````
+- Update the path to the data indicating the correct path: 
+```shell
+path = r'/content/pMoSS/data/morphology/'
+````
+or
+```shell
+path = r'/content/drive/My Drive/path_to_the_data_in_your_drive/'
+````
+- If necessary, update the name of the data:
+```shell
+file_name = r'new_data.xlsx'
+````
 You are ready to run the code in the notebook!
 
-#### Analysis of new data using Google Colab
-![Analysis of new data in Google Colab](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/new_data_analysis_colab.gif)
+#### Get pMoSS ready in Google Colab
+![Analysis of new data in Google Colab](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/data_analysis.png)
 
+https://www.youtube.com/watch?v=sT1eHp8ZVUk
+
+#### Analysis of new data using Google Colab
+![Analysis of new data in Google Colab](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/new_data_analysis.png)
 
 https://youtu.be/2iNj96r0N7U
 
