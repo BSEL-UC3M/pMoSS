@@ -1,4 +1,4 @@
-# pMoSS: ***p**-value* **Mo**del using the **S**ample **S**ize 
+﻿# pMoSS: ***p**-value* **Mo**del using the **S**ample **S**ize 
 
 [![minimal Python version](https://img.shields.io/badge/Python%3E%3D-3.6-6666ff.svg)](https://www.anaconda.com/distribution/)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause--Clear-orange.svg)](https://spdx.org/licenses/BSD-3-Clause-Clear.html)
@@ -9,11 +9,11 @@ This statistical method uses the relationship between the *p-value* and the samp
 
 The method uses Monte Carlo cross-validation to estimate the distribution of the *p-value* using samples of different sizes, and fits an exponential curve. When the *p-value* of a certain statistical hypothesis test is treated as a function of **n**, it is possible to get quantitative indicators of the data, such as the decay of the function or the minimum data size needed to get statistically significant differences (**n<sub>&alpha;</sub>**).
 
-![](https://github.com/esgomezm/pMoSS/raw/master/images/pvalue_function.png)
+![](https://github.com/esgomezm/pMoSS/raw/master/assets/pvalue_function.png)
 
 The following figure illustrates a common output of the method. Here the cell body roundness is tested when cancer cells are treated with Taxol.
 
-![](https://github.com/esgomezm/pMoSS/raw/master/images/cell_roundness_taxol.png)
+![](https://github.com/esgomezm/pMoSS/raw/master/assets/cell_roundness_taxol.png)
 
 >(Leftmost) The cell roundness distribution of control cells and cells treated at 1 nM Taxol have lower values than that of cells treated at 50 nM. (Right) The three groups were compared, the *p-values* were estimated and **p(n)** was fitted for each pair of compared groups. When Taxol at 50 nM is evaluated (blue and yellow dashed curves), **n<sub>&alpha;</sub>** is lower and the decay of **p(n)** is higher (**a** and **c** parameters  of the exponential function <img src="https://latex.codecogs.com/svg.latex?\Large&space;ae^{-cn}" title="\Large ae^{-cn}" /> ), i.e. it decreases much faster than the one corresponding comparison of control and Taxol at 1 nM (orange curve). 
 
@@ -57,6 +57,7 @@ pip3 install jupyter
 jupyter notebook
 ```
 In Jupyter, you have access to the directories in your local machine. Open the notebook in the examples and run the code written on it. 
+
 ### Google Colab
 Open the notebook of the examples in Google Colab and add the following code lines at the beginning:
 
@@ -90,6 +91,10 @@ drive.mount('/content/drive')
     path.append('/content/drive/My Drive/the_path_in_your_drive/pMoSS/pMoSS/')
     ````
 You are ready to run the code in the notebook!
+
+#### Analysis of new data using Google Colab
+![Analysis of new data in Google Colab](https://github.com/esgomezm/pMoSS/raw/master/assets/new_data_analysis_colab.gif)
+
 
 ## System requirements
 Operating systems.
