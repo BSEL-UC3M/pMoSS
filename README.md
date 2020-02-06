@@ -93,7 +93,7 @@ drive.mount('/content/drive')
 You are ready to run the code in the notebook!
 
 #### Analysis of new data using Google Colab
-![Analysis of new data in Google Colab](https://github.com/esgomezm/pMoSS/raw/master/assets/new_data_analysis_colab.gif)
+![Analysis of new data in Google Colab](https://github.com/esgomezm/pMoSS/raw/master/images/new_data_analysis_colab.gif)
 
 
 ## System requirements
