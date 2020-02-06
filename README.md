@@ -9,11 +9,11 @@ This statistical method uses the relationship between the *p-value* and the samp
 
 The method uses Monte Carlo cross-validation to estimate the distribution of the *p-value* using samples of different sizes, and fits an exponential curve. When the *p-value* of a certain statistical hypothesis test is treated as a function of **n**, it is possible to get quantitative indicators of the data, such as the decay of the function or the minimum data size needed to get statistically significant differences (**n<sub>&alpha;</sub>**).
 
-![](https://github.com/esgomezm/pMoSS/raw/master/assets/pvalue_function.png)
+![](https://github.com/esgomezm/pMoSS/blob/master/images/pvalue_function.png)
 
 The following figure illustrates a common output of the method. Here the cell body roundness is tested when cancer cells are treated with Taxol.
 
-![](https://github.com/esgomezm/pMoSS/raw/master/assets/cell_roundness_taxol.png)
+![](https://github.com/esgomezm/pMoSS/blob/master/images/cell_roundness_taxol.png)
 
 >(Leftmost) The cell roundness distribution of control cells and cells treated at 1 nM Taxol have lower values than that of cells treated at 50 nM. (Right) The three groups were compared, the *p-values* were estimated and **p(n)** was fitted for each pair of compared groups. When Taxol at 50 nM is evaluated (blue and yellow dashed curves), **n<sub>&alpha;</sub>** is lower and the decay of **p(n)** is higher (**a** and **c** parameters  of the exponential function <img src="https://latex.codecogs.com/svg.latex?\Large&space;ae^{-cn}" title="\Large ae^{-cn}" /> ), i.e. it decreases much faster than the one corresponding comparison of control and Taxol at 1 nM (orange curve). 
 
@@ -93,7 +93,9 @@ drive.mount('/content/drive')
 You are ready to run the code in the notebook!
 
 #### Analysis of new data using Google Colab
-![Analysis of new data in Google Colab](https://github.com/esgomezm/pMoSS/raw/master/images/new_data_analysis_colab.gif)
+![Analysis of new data in Google Colab](https://github.com/esgomezm/pMoSS/blob/master/images/new_data_analysis_colab.gif)
+
+
 https://youtu.be/2iNj96r0N7U
 
 ## System requirements
