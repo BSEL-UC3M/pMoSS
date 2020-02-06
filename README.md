@@ -94,7 +94,7 @@ You are ready to run the code in the notebook!
 
 #### Analysis of new data using Google Colab
 ![Analysis of new data in Google Colab](https://github.com/esgomezm/pMoSS/raw/master/images/new_data_analysis_colab.gif)
-
+https://youtu.be/2iNj96r0N7U
 
 ## System requirements
 Operating systems.
