@@ -26,24 +26,30 @@ The code can be used either in a local machine or in [Google Colab](https://cola
 ### Local Machine
 You need to have Python installed previously. For non-expert users, it is highly recommended to download the [Anaconda distribution](https://www.continuum.io/downloads) of Python to obtain the dependencies easily. 
 
-Use Anaconda Navigator or Anaconda Prompt to create a new virtual environment with Python 3 and avoid any version compatibility issues:
+Create a new virtual environment with Python 3 and avoid any version compatibility issues. There are three different ways to do it:
 - Create a virtual environment with [Python](https://docs.python.org/3/tutorial/venv.html) (advanced users).
-- Create a virtual environment with [Anaconda Prompt](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html):
+- Open [Anaconda Prompt](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) and create a virtual environment called `your_virtualenv` using `conda create`:
   ```shell
   conda create -n your_virtualenv python=3.6
   ```
-- Create a virtual environment with [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/tutorials/manage-environments/).
+- Open [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/tutorials/manage-environments/) and create a virtual environment using the GUI.
 
 Download or [clone](https://help.github.com/articles/cloning-a-repository) this repository in your local machine.
 
-Open Anaconda Prompt, activate your virtual environment and install all the packages specified in the requirements file:
+Open Anaconda Prompt and activate your virtual environment using `conda activate`:
 ```shell
-cd to/the/directory/where/code/and/requirements.txt/are/located/
 conda activate your_virtualenv
+```
+Once `your_virtualnv` is activated, place the working path in the directory where you downloaded/cloned this repository: 
+ ```shell
+cd to/the/directory/where/code/and/requirements.txt/are/located/
+```
+Install all the packages specified in the requirements file with `pip`:
+ ```shell
 pip install -r requirements.txt
 ```
 
-To run the notebook of the examples, you can install [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/index.html) either using Anaconda Navigator or Anaconda Prompt with the following command:
+To run the notebook of the examples, you can install [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/index.html) either using Anaconda Navigator or Anaconda Prompt. Do not forget to do it in your virtual environment. So if necessary, activate `your_virtualenv`using `conda activate` (as it was done in previous lines) and install Jupyter with the following command:
 
 ```shell
 pip3 install --upgrade pip
