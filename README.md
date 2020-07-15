@@ -1,6 +1,6 @@
 ﻿# pMoSS: ***p**-value* **Mo**del using the **S**ample **S**ize 
 
-[![minimal Python version](https://img.shields.io/badge/Python%3E%3D-3.6-6666ff.svg)](https://www.anaconda.com/distribution/)
+[![minimal Python version](https://img.shields.io/badge/Python-3.6-6666ff.svg)](https://www.anaconda.com/distribution/)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause--Clear-orange.svg)](https://spdx.org/licenses/BSD-3-Clause-Clear.html)
 
 pMoSS (***p**-value* **Mo**del using the **S**ample **S**ize) is a Python code to model the *p-value* as an n-dependent function using Monte Carlo cross-validation. 
