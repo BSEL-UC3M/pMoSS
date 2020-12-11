@@ -7,15 +7,28 @@ pMoSS (***p**-value* **Mo**del using the **S**ample **S**ize) is a Python code t
 
 This statistical method uses the relationship between the *p-value* and the sample size to characterize the data of an experiment and decide, robustly, when the null hypothesis can be rejected.
 
+The method is presented at [E. Gómez-de-Mariscal, A. Sneider, H. Jayatilaka, J. M. Phillip, D. Wirtz and A. Muñoz-Barrutia, "Confronting p-hacking: addressing p-value dependence on sample size." BiorXiv, 2019.](https://doi.org/10.1101/2019.12.17.878405)
+
+## Conditions of use
+pMoSS is an open-source software (OSS) under the BSD 2-Clause License. All the resources provided here are freely available for non-commercial and research purposes. Their use for any other purpose is generally possible, but solely with the explicit permission of the authors. You are expected to include adequate references whenever you present or publish results that are based on the resources provided.
+
+## Whatch these short tutorials to become an expert user of pMoSS
+
+| Get pMoSS ready in Google Colab | Analysis of new data using Google Colab |
+|:-:|:-:|
+| [![](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/data_analysis.png)](https://youtu.be/pnMQ2E6YLj0) | [![](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/new_data_analysis.png)](https://youtu.be/iVw5eAHVcTQ) | 
+
+## Brief description
+
 The method uses Monte Carlo cross-validation to estimate the distribution of the *p-value* using samples of different sizes, and fits an exponential curve. When the *p-value* of a certain statistical hypothesis test is treated as a function of **n**, it is possible to get quantitative indicators of the data, such as the decay of the function or the minimum data size needed to get statistically significant differences (**n<sub>&alpha;</sub>**).
 
 ![](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/pvalue_function.png)
 
 The following figure illustrates a common output of the method. Here the cell body roundness is tested when cancer cells are treated with Taxol.
 
-![](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/cell_roundness_taxol.png)
+![](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/cell_roundness_taxol.png)|
+>(Leftmost) The cell roundness distribution of control cells and cells treated at 1 nM Taxol have lower values than that of cells treated at 50 nM. (Right) The three groups were compared, the *p-values* were estimated and **p(n)** was fitted for each pair of compared groups. When Taxol at 50 nM is evaluated (blue and yellow dashed curves), **n<sub>&alpha;</sub>** is lower and the decay of **p(n)** is higher (**a** and **c** parameters  of the exponential function <img src="https://latex.codecogs.com/svg.latex?\Large&space;ae^{-cn}" title="\Large ae^{-cn}" /> ), i.e. it decreases much faster than the one corresponding comparison of control and Taxol at 1 nM (orange curve).
 
->(Leftmost) The cell roundness distribution of control cells and cells treated at 1 nM Taxol have lower values than that of cells treated at 50 nM. (Right) The three groups were compared, the *p-values* were estimated and **p(n)** was fitted for each pair of compared groups. When Taxol at 50 nM is evaluated (blue and yellow dashed curves), **n<sub>&alpha;</sub>** is lower and the decay of **p(n)** is higher (**a** and **c** parameters  of the exponential function <img src="https://latex.codecogs.com/svg.latex?\Large&space;ae^{-cn}" title="\Large ae^{-cn}" /> ), i.e. it decreases much faster than the one corresponding comparison of control and Taxol at 1 nM (orange curve). 
 
 
 ## Installation
@@ -105,16 +118,6 @@ file_name = r'new_data.xlsx'
 ````
 You are ready to run the code in the notebook!
 
-#### Get pMoSS ready in Google Colab
-![Analysis of new data in Google Colab](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/data_analysis.png)
-
-https://www.youtube.com/watch?v=sT1eHp8ZVUk
-
-#### Analysis of new data using Google Colab
-![Analysis of new data in Google Colab](https://github.com/BIIG-UC3M/pMoSS/blob/master/images/new_data_analysis.png)
-
-https://youtu.be/2iNj96r0N7U
-
 ## System requirements
 Operating systems.
 * Windows
@@ -149,11 +152,3 @@ To avoid heavy computations and make a quick test of the code, download the data
 - All kind of feedback is welcome. Specially if it supports the use of the code and a better understanding on how to work with it.
 - Controbutions are also welcome. Please, create a new pull request on a new development branch to add new features, correct bugs or make changes in the code.
 - Please, if possible, use GitHub [Issues](https://github.com/esgomezm/pMoSS/issues) to report any bug or ask questions.
-
-
-## Conditions of use
-pMoSS is an open-source software (OSS) under the BSD 2-Clause License. All the resources provided here are freely available for non-commercial and research purposes. Their use for any other purpose is generally possible, but solely with the explicit permission of the authors. You are expected to include adequate references whenever you present or publish results that are based on the resources provided.
-
-## References
-E. Gómez-de-Mariscal, A. Sneider, H. Jayatilaka, J. M. Phillip, D. Wirtz and A. Muñoz-Barrutia, "Confronting p-hacking: addressing p-value dependence on sample size." BiorXiv, 2019.
-
