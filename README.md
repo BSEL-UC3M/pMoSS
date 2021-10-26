@@ -7,7 +7,22 @@ pMoSS (***p**-value* **Mo**del using the **S**ample **S**ize) is a Python code t
 
 This statistical method uses the relationship between the *p-value* and the sample size to characterize the data of an experiment and decide, robustly, when the null hypothesis can be rejected.
 
-The method is presented at [E. Gómez-de-Mariscal, A. Sneider, H. Jayatilaka, J. M. Phillip, D. Wirtz and A. Muñoz-Barrutia, "Confronting p-hacking: addressing p-value dependence on sample size." BiorXiv, 2019.](https://doi.org/10.1101/2019.12.17.878405)
+The method is presented at [E. Gómez-de-Mariscal, V. Guerrero, A. Sneider, H. Jayatilaka, J. M. Phillip, D. Wirtz and A. Muñoz-Barrutia, "Use of the p-values as a size-dependent function to address practical differences when analyzing large datasets." Scientific Reports, 2021.]( https://doi.org/10.1038/s41598-021-00199-5)
+
+#### How to cite
+```bibtex
+@article{gomez2021pvalue,
+  title={Use of the p-values as a size-dependent function to address practical differences when analyzing large datasets},
+  author={G{\'o}mez-de-Mariscal, Estibaliz and Guerrero, Vanesa and Sneider, Alexandra and Jayatilaka, Hasini and Phillip, Jude M. and Wirtz, Denis and Mu{\~{n}}oz-Barrutia, Arrate},
+  journal={Scientific Reports},
+  year={2021},
+  volume={11},
+  number={20942},
+  URL = {https://doi.org/10.1038/s41598-021-00199-5},
+  doi = {10.1038/s41598-021-00199-5}
+}
+```
+
 
 ## Conditions of use
 pMoSS is an open-source software (OSS) under the BSD 2-Clause License. All the resources provided here are freely available for non-commercial and research purposes. Their use for any other purpose is generally possible, but solely with the explicit permission of the authors. You are expected to include adequate references whenever you present or publish results that are based on the resources provided.
