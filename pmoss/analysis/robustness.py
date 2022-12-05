@@ -6,9 +6,9 @@ Created on Wed Mar 20 12:41:55 2019
 """
 import numpy as np
 import pandas as pd
-from exponential_fit import decission_data_exponential
-from lowess_fit import decission_data_lowess
-from decision_index import get_decision_index
+from ..models.exponential_fit import decission_data_exponential
+from ..models.lowess_fit import decission_data_lowess
+from ..analysis.data_diagnosis import get_decision_index
 
 def get_Nmax(df, condition = None):
    if condition is None:
@@ -33,6 +33,13 @@ def filter_dataframe(df, col_name, values):
     return df_new
 
 def get_grids(n0, ninf, Nmax, nsize = None, k = None, initial_portion = None ):
+    # n0: minimum value in the grid of n
+    # Nmax: maximum value in the grid of n
+
+    # m: data size to consider for the amount of k-fold in the cross validation
+    # k: weight to determine the amount of k-folds when n = Nmax
+    # initial_portion: weight to limit the amount of k-folds when n = n0
+
     # Default parameters
     if nsize is None:
         nsize = 250
