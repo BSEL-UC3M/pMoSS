@@ -70,7 +70,7 @@ def data_diagnosis(file_name, gamma, alpha, grid_size, n0,Nmax,k,
                                          initial_portion, test = test)
     
     # Save p-values in the temporary directory
-    np.save(os.path.join('../computed_pvalues/all_pvalues.npy'),df_pvalues)
+    np.save('../computed_pvalues/' + 'all_pvalues.npy',df_pvalues)
     
     
     # Compute the decision analysis of the estimated p-values

@@ -24,7 +24,7 @@ def load_pvalue_data(name, path = None):
                   '1': 't-test',
                 }
 #            cell_morphology = np.load('morphological_measures_p_value_new.npy')
-        cell_morphology = np.load(os.path.join(path, 'morphological_measures_p_value_new_total.npy'))
+        cell_morphology = np.load(path + 'morphological_measures_p_value_new_total.npy')
         df = pd.DataFrame()
         df['p_value'] = cell_morphology[:,0]
         df['measure'] = cell_morphology[:,1]
@@ -42,7 +42,7 @@ def load_pvalue_data(name, path = None):
         test = {  '0': 'MannWhitneyU',
                   '1': 't-test',
                 }
-        protrusion_morphology = np.load(os.path.join(path, 'p_values_prot_morpho_new.npy'))
+        protrusion_morphology = np.load(path + 'p_values_prot_morpho_new.npy')
         df = pd.DataFrame()
         df['p_value'] = protrusion_morphology[:,0]
         df['measure'] = protrusion_morphology[:,1]
@@ -53,7 +53,7 @@ def load_pvalue_data(name, path = None):
     elif name == 'protrusion_binary':
         measure = {  '0': 'protrusion_binary'}
         test = {  '0': 'ChiSquared'}
-        protrusions_binary = np.load(os.path.join(path, 'p_values_prot_number_binary_new.npy'))
+        protrusions_binary = np.load(path + 'p_values_prot_number_binary_new.npy')
         df = pd.DataFrame()
         df['p_value'] = protrusions_binary[:,0]   
         df['N'] = protrusions_binary[:,1] 
@@ -138,11 +138,11 @@ def morphoparam(file_name, path=None):
     print(file_name)
     try:
         if file_name[-4:] == 'xlsx':
-            data = pd.read_excel(os.path.join(path, file_name), sheet_name='Sheet1',
+            data = pd.read_excel(path + file_name, sheet_name='Sheet1',
                                  header=0)
 
         elif file_name[-3:] == 'csv':
-            data = pd.read_csv(os.path.join(path, file_name), sep=';', header=0)
+            data = pd.read_csv(path + file_name, sep=';', header=0)
 
         variables = data.columns[1:]
         data_features = dict()

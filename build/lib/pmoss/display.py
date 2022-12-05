@@ -175,7 +175,7 @@ def plot_decission_with_LOWESS(df, combination,test, measure, fs = None,
         splot.set_ylim([0,0.45])
         f.tight_layout()
         if save_fig == 1:
-            plt.savefig(os.path.join(path,  combination[np.str(c)] + file_name), dpi=75)
+            plt.savefig(path + combination[np.str(c)] + file_name, dpi=75) 
         plt.show()
    
     
@@ -316,7 +316,7 @@ def plot_pcurve_by_measure(df, combination, measure, test = None,  fs = None,
         
         f.tight_layout()
         if save_fig == 1:
-            plt.savefig(os.path.join(path, measure[np.str(i)] + file_name), dpi=75)
+            plt.savefig(path + measure[np.str(i)] + file_name, dpi=75) 
         plt.show()
 
 
@@ -788,5 +788,5 @@ def composed_plot(data, df, group_labels, combination,measure,test = None,
         
 #        f.tight_layout()
         if save_fig == 1:
-            plt.savefig(os.path.join(path, measure[np.str(i)] + file_name), dpi=75)
+            plt.savefig(path + measure[np.str(i)] + file_name, dpi=75) 
         plt.show()
