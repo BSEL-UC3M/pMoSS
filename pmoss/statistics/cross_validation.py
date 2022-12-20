@@ -8,6 +8,7 @@ import numpy as np
 import scipy.misc
 import scipy.io
 import pandas as pd
+import os
 #from statistical_tests import obtain_pvalues_ChiSquared
 #from statistical_tests import pvalues_continuous
 
