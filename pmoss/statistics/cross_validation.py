@@ -57,9 +57,15 @@ def get_grids(n0, Nmax, m, grid_size=None, k=None, initial_portion=None):
     return grid_n, folds
 
 def read_pvalues(file_list, temp_folder='../computed_pvalues/'):
+    """
+
+    :param file_list: a list with the names of the numpy arrays to read
+    :param temp_folder: the folder where the files ar stored
+    :return: a pandas array with the information of all the files is concatenated by rows.
+    """
     df_pvalues = pd.DataFrame()
     for f in range(len(file_list)):
-        aux = np.load(os.path.join(temp_folder, file_list[0].iloc[f]))
+        aux = np.load(os.path.join(temp_folder, file_list[f]), allow_pickle=True)
 
         pd_aux = pd.DataFrame()
         pd_aux['p_value'] = aux[:, 0]
@@ -91,7 +97,7 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
     grid_n, folds = get_grids(n0, Nmax, m, grid_size = grid_size, k = k, initial_portion = initial_portion )
     
 #    df_pvalues = pd.DataFrame()
-    file_list=pd.DataFrame()
+    file_list = []
     # Compare each condition with the rest without repeating the comparisons        
     for c in range(len(group_dict)):
         if c+1 < len(group_dict):
@@ -186,10 +192,9 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                     print('Cross validation with N = ', grid_n_l[ni], ' and folds = ', folds_l[ni], ' finished.')
                 
                 # Store p-values after cross validation to release memory. 
-                file_name = [group_dict[np.str(c)] + '_' + group_dict[np.str(k)] + '_pvalues.npy']
-                np.save(os.path.join(temp_folder, file_name[0]),df_pvalues)
-                file_name = pd.DataFrame(file_name)
-                file_list = pd.concat([file_list,file_name])
+                file_name = group_dict[np.str(c)] + '_' + group_dict[np.str(k)] + '_pvalues.npy'
+                np.save(os.path.join(temp_folder, file_name), df_pvalues)
+                file_list.append(file_name)
     # Read all saved p-values from '../computed_pvalues/'            
     df_pvalues = read_pvalues(file_list, temp_folder=temp_folder)
     return df_pvalues
