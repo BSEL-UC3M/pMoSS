@@ -37,7 +37,7 @@ def get_decision_index(decission_param, data_features, combination_dict):
 
 def data_diagnosis(file_name, gamma, alpha, grid_size, n0,Nmax,k,
                    initial_portion,path=None,method = None, test = None, 
-                   path2images=None, group_dict = None):
+                   path2images=None, group_dict = None, temp_folder='../computed_pvalues/'):
     
     if test is None:
         test = 'MannWhitneyU'
@@ -56,21 +56,21 @@ def data_diagnosis(file_name, gamma, alpha, grid_size, n0,Nmax,k,
     
     # Create a temporary directory to store the value during 
     # Monte-Carlo cross validation
-    if not os.path.exists('../computed_pvalues/'):
+    if not os.path.exists(temp_folder):
             try:
-                os.makedirs('../computed_pvalues/' )    
+                os.makedirs(temp_folder)
             except OSError as e:
                 print ("Error: %s - %s." % (e.filename, e.strerror))
-                print ("../computed_pvalues/ folder could not be created")
+                print ("{} folder could not be created".format(temp_folder))
         
     
     # Estimate p-values    
     df_pvalues = cross_validated_pvalues(data, data_features, group_dict, 
                                          grid_size, n0, Nmax, k, 
-                                         initial_portion, test = test)
+                                         initial_portion, test = test, temp_folder=temp_folder)
     
     # Save p-values in the temporary directory
-    np.save(os.path.join('../computed_pvalues/all_pvalues.npy'),df_pvalues)
+    np.save(os.path.join(temp_folder, 'all_pvalues.npy'), df_pvalues)
     
     
     # Compute the decision analysis of the estimated p-values
@@ -100,7 +100,7 @@ def data_diagnosis(file_name, gamma, alpha, grid_size, n0,Nmax,k,
 def compute_diagnosis(file_name, path=None,
                       gamma=None, alpha=None, grid_size=None, n0=None,
                       Nmax=None, k=None, initial_portion=None, method=None,
-                      test=None, group_dict=None):
+                      test=None, group_dict=None, output_folder='../computed_pvalues/'):
     """
     This function initializes all the parameters and computes the data diagnosis.
     See the manuscript for further detail.
@@ -170,10 +170,11 @@ def compute_diagnosis(file_name, path=None,
                                                         path=path,
                                                         method=method,
                                                         test=test,
-                                                        group_dict=group_dict)
+                                                        group_dict=group_dict,
+                                                        temp_folder=output_folder)
 
     # Remove the temporary directory
-    mydir = '../computed_pvalues/'
+    mydir = output_folder
     ## Try to remove tree; if failed show an error using try...except on screen
     try:
         shutil.rmtree(mydir)

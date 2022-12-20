@@ -27,7 +27,8 @@ setup(
         'seaborn',
         'statsmodels>=0.9.0',
         'glob2',
-        'pytest-shutil'
+        'pytest-shutil',
+        'openpyxl'
       ],
     classifiers=[
         'Development Status :: 3 - Alpha',
