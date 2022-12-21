@@ -40,10 +40,7 @@ def get_grids(n0, Nmax, m, grid_size=None, k=None, initial_portion=None):
         initial_portion = 1 / 3.
     if k is None:
         k = 20
-
     # Grid calculation
-    #     if m < Nmax:
-    #         Nmax = m
     grid_n = np.exp(np.linspace(np.round(np.log(n0)), np.log(Nmax), grid_size))
     grid_n = grid_n.astype(np.int)
     grid_n = np.unique(grid_n)
@@ -51,9 +48,11 @@ def get_grids(n0, Nmax, m, grid_size=None, k=None, initial_portion=None):
     # folds i calculation from the grid
     final_fold = k * (m / min(m, np.max(grid_n)))
     final_fold = np.int(final_fold)
-    folds = np.exp(np.linspace(np.log((m / n0) * initial_portion), np.log(final_fold), len(grid_n)))
+    folds = np.exp(
+        np.linspace(np.log((m / n0) * initial_portion), np.log(final_fold), len(grid_n))
+            )
     folds = folds.astype(np.int)
-
+    folds = folds[::-1]
     return grid_n, folds
 
 def read_pvalues(file_list, temp_folder='../computed_pvalues/'):

@@ -12,9 +12,8 @@ import shutil
 from pmoss.utils import create_combination
 from pmoss.loaders import morphoparam
 from pmoss.statistics import cross_validated_pvalues
-
-# from data_classification_labels import group_names
-# from data_classification_labels import group_combination
+from models.lowess_fit import decission_data_lowess
+from models.exponential_fit import decission_data_exponential
 
 def get_decision_index(decission_param, data_features, combination_dict):
     Theta = pd.DataFrame()
@@ -75,16 +74,12 @@ def data_diagnosis(file_name, gamma, alpha, grid_size, n0,Nmax,k,
     
     # Compute the decision analysis of the estimated p-values
     if method == 'lowess':
-        
-        from lowess_fit import decission_data_lowess
         decission_param = decission_data_lowess(df_pvalues, combination_dict,
                                                 data_features,
                                                 sign_level = alpha,
                                                 gamma = gamma)
         
     elif method == 'exponential' or method is None:
-        
-        from exponential_fit import decission_data_exponential
         decission_param = decission_data_exponential(df_pvalues, 
                                                      combination_dict, 
                                                      data_features, 
