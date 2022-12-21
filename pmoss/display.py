@@ -13,6 +13,7 @@ import seaborn as sns
 from .models.exponential_fit import decission_data_exponential
 from .models.lowess_fit import significance_analysis
 from .analysis import get_decision_index
+import os
 
 def table_of_results(param, data_features, combination_dict):
     Theta = get_decision_index(param, data_features, combination_dict)

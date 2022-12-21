@@ -6,6 +6,7 @@ Created on Wed Dec 21 11:38:47 2022
 """
 
 # Load the packages needed to run the scripts in this notebook
+import os
 import numpy as np
 import pandas as pd
 from pmoss.analysis import compute_diagnosis
@@ -34,11 +35,11 @@ Nmax = 2500
 
 # This value prevents from having only one iteration for the highest "n-value":
 # final iterations = k*(m/min(m,Nmax)) where m is the size of group with less observations.
-k = 20
+k = 5
 
 # This value prevents from having millions of iterations in n0 (the lowest"n-value"):
 # initial iterations = np.log((m/n0)*initial_portion) where m is the size of group with less observations.
-initial_portion=0.001
+initial_portion=0.00001
 
 alpha = 0.05 # alpha for a 100(1-alpha) statistical significance.
 gamma = 5e-06 # gamma in the paper = gamma*alpha.
@@ -58,7 +59,7 @@ del pvalues
 
 # Load the data
 file_name = r'cell_data.xlsx'
-df = pd.read_csv(path + 'cell_morphology_pvalues.csv',sep=',')
+df = pd.read_csv(os.path.join(path, 'cell_morphology_pvalues.csv'), sep=',')
 
 # Obtain the data, variables and name of the groups for which you would like to get a plot
 data, variables, group_labels = morphoparam(file_name, path=path)
