@@ -8,13 +8,78 @@ import numpy as np
 import scipy.misc
 import scipy.io
 import pandas as pd
-
+import os
 #from statistical_tests import obtain_pvalues_ChiSquared
 #from statistical_tests import pvalues_continuous
-from grids import get_datasize
-from grids import get_grids
 
-def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, k, initial_portion, test = None):
+def get_datasize(df, group, group_dict):
+    # group: name of the variable to measure
+    # group_dict: dictionary with the different classes/groups by the variable group.
+
+    m = 0.
+    for c in range(len(group_dict)):
+        aux = df[df[group] == group_dict[np.str(c)]][group]
+        # if len(aux) < m:
+        if len(aux) > m:
+            m = len(aux)
+
+    return m
+
+def get_grids(n0, Nmax, m, grid_size=None, k=None, initial_portion=None):
+    # n0: minimum value in the grid of n
+    # Nmax: maximum value in the grid of n
+
+    # m: data size to consider for the amount of k-fold in the cross validation
+    # k: weight to determine the amount of k-folds when n = Nmax
+    # initial_portion: weight to limit the amount of k-folds when n = n0
+
+    # Default parameters
+    if grid_size is None:
+        grid_size = 250
+    if initial_portion is None:
+        initial_portion = 1 / 3.
+    if k is None:
+        k = 20
+    # Grid calculation
+    grid_n = np.exp(np.linspace(np.round(np.log(n0)), np.log(Nmax), grid_size))
+    grid_n = grid_n.astype(np.int)
+    grid_n = np.unique(grid_n)
+
+    # folds i calculation from the grid
+    final_fold = k * (m / min(m, np.max(grid_n)))
+    final_fold = np.int(final_fold)
+    folds = np.exp(
+        np.linspace(np.log((m / n0) * initial_portion), np.log(final_fold), len(grid_n))
+            )
+    folds = folds.astype(np.int)
+    folds = np.sort(folds)[::-1]
+    return grid_n, folds
+
+def read_pvalues(file_list, temp_folder='../computed_pvalues/'):
+    """
+
+    :param file_list: a list with the names of the numpy arrays to read
+    :param temp_folder: the folder where the files ar stored
+    :return: a pandas array with the information of all the files is concatenated by rows.
+    """
+    df_pvalues = pd.DataFrame()
+    for f in range(len(file_list)):
+        aux = np.load(os.path.join(temp_folder, file_list[f]), allow_pickle=True)
+
+        pd_aux = pd.DataFrame()
+        pd_aux['p_value'] = aux[:, 0]
+        pd_aux['N'] = aux[:, 1]
+        pd_aux['comparison'] = aux[:, 2]
+        pd_aux['test'] = aux[:, 3]
+        pd_aux['measure'] = aux[:, 4]
+        del aux
+
+        df_pvalues = pd.concat([df_pvalues, pd_aux])
+        del pd_aux
+
+    return df_pvalues
+
+def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, k, initial_portion, test = None, temp_folder='../computed_pvalues/'):
     # df: dataframe containing numerical values of the different measures and ordered by groups 
     # group_dict: dictionary of the different groups
     # measure: dictionary of the measures 
@@ -31,7 +96,7 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
     grid_n, folds = get_grids(n0, Nmax, m, grid_size = grid_size, k = k, initial_portion = initial_portion )
     
 #    df_pvalues = pd.DataFrame()
-    file_list=pd.DataFrame()
+    file_list = []
     # Compare each condition with the rest without repeating the comparisons        
     for c in range(len(group_dict)):
         if c+1 < len(group_dict):
@@ -126,38 +191,12 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                     print('Cross validation with N = ', grid_n_l[ni], ' and folds = ', folds_l[ni], ' finished.')
                 
                 # Store p-values after cross validation to release memory. 
-                file_name = [group_dict[np.str(c)] + '_' + group_dict[np.str(k)] + '_pvalues.npy']
-                np.save('../computed_pvalues/' + file_name[0],df_pvalues)
-                file_name = pd.DataFrame(file_name)
-                file_list = pd.concat([file_list,file_name])
+                file_name = group_dict[np.str(c)] + '_' + group_dict[np.str(k)] + '_pvalues.npy'
+                np.save(os.path.join(temp_folder, file_name), df_pvalues)
+                file_list.append(file_name)
     # Read all saved p-values from '../computed_pvalues/'            
-    df_pvalues = read_pvalues(file_list)            
+    df_pvalues = read_pvalues(file_list, temp_folder=temp_folder)
     return df_pvalues
-
-
-
-
-def read_pvalues(file_list):
-    df_pvalues = pd.DataFrame()
-    for f in range(len(file_list)):
-        aux = np.load('../computed_pvalues/' + file_list[0].iloc[f])
-        
-        pd_aux = pd.DataFrame()
-        pd_aux['p_value']=aux[:,0]
-        pd_aux['N']=aux[:,1]        
-        pd_aux['comparison']=aux[:,2]
-        pd_aux['test']=aux[:,3]
-        pd_aux['measure']=aux[:,4]
-        del aux
-        
-        df_pvalues = pd.concat([df_pvalues, pd_aux])
-        del pd_aux
-        
-    return df_pvalues
-
-
-
-
 
 def get_comparison_list(group_dict, test = None):
     # group_dict: dictionary of the different groups    

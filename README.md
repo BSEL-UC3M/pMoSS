@@ -49,12 +49,12 @@ The following figure illustrates a common output of the method. Here the cell bo
 ## Installation
 
 This package is tested on Python 3.6 and 3.7.
-The code can be used either in a local machine or in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb#recent=true). 
+The code can be used either in a local machine or in  
 
 ### Local Machine
 You need to have Python installed previously. For non-expert users, it is highly recommended to download the [Anaconda distribution](https://www.continuum.io/downloads) of Python to obtain the dependencies easily. 
 
-Create a new virtual environment with Python 3 and avoid any version compatibility issues. There are three different ways to do it:
+Create a new virtual environment with Python 3.6 to avoid any version compatibility issues. There are three different ways to do it:
 - Create a virtual environment with [Python](https://docs.python.org/3/tutorial/venv.html) (advanced users).
 - Open [Anaconda Prompt](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) and create a virtual environment called `your_virtualenv` using `conda create`:
   ```shell
@@ -62,32 +62,36 @@ Create a new virtual environment with Python 3 and avoid any version compatibili
   ```
 - Open [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/tutorials/manage-environments/) and create a virtual environment using the GUI.
 
-Download or [clone](https://help.github.com/articles/cloning-a-repository) this repository in your local machine.
-
 Open Anaconda Prompt and activate your virtual environment using `conda activate`:
 ```shell
 conda activate your_virtualenv
 ```
-Once `your_virtualnv` is activated, place the working path in the directory where you downloaded/cloned this repository: 
+Once `your_virtualnv` is activated, install the `pmoss` python package using pip: 
  ```shell
-cd to/the/directory/where/code/and/requirements.txt/are/located/
+pip install pmoss
 ```
-Install all the packages specified in the requirements file with `pip`:
- ```shell
-pip install -r requirements.txt
-```
+## Examples
 
-To run the notebook of the examples, you can install [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/index.html) either using Anaconda Navigator or Anaconda Prompt. Do not forget to do it in your virtual environment. So if necessary, activate `your_virtualenv`using `conda activate` (as it was done in previous lines) and install Jupyter with the following command:
+We provide two [notebooks as examples](https://github.com/BIIG-UC3M/pMoSS/tree/master/examples) with the data used in the reference manuscript. You need to install [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/index.html). Do not forget to do it in your virtual environment: activate `your_virtualenv` using `conda activate` (as it was done in previous lines) and install Jupyter with the following command:
 
 ```shell
-pip3 install --upgrade pip
-pip3 install jupyter
+pip install jupyter
 jupyter notebook
 ```
-In Jupyter, you have access to the directories in your local machine. Open the notebook in the examples and run the code written on it. 
+In Jupyter, you have access to the directories in your local machine. Once you have downloaded one of the example jupyter notebooks, open it and run the cells. 
+
+Please, note that the software is not implemented for GPU, so Monte Carlo cross-validation takes quite a long time. The user can target the process by observing for a certain **n**-value, when a entire cross-validation has finished. 
+
+### Play with already computed p-values
+In [Releases](https://github.com/BIIG-UC3M/pMoSS/releases), you will find a data.zip file which contains the estimated *p-values* of the examples:
+
+- *p-values* for the morphology changes with the increase of cellular age.
+- *p-values* for the morphology changes in cancer cells and their protrusions after being treated with Taxol.
+
+To avoid heavy computations and make a quick test of the code, download the data. Then, place it into the folder of the cloned repository, so the links in the notebooks work properly. Otherwise, change the links in the notebooks.
 
 ### Google Colab
-Open the notebook of the examples in Google Colab (File -> Open notebook... -> GitHub -> URL to the notebook). Note that you need to save a copy of this notebook in your drive to keep any change (File -> Save a copy in Drive)
+You could run the notebooks in [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb#recent=true). Open the notebook of the examples in Google Colab (File -> Open notebook... -> GitHub -> URL to the notebook). Note that you need to save a copy of this notebook in your drive to keep any change (File -> Save a copy in Drive)
 
 Add the following code lines at the beginning of the notebook:
 
@@ -97,39 +101,14 @@ Add the following code lines at the beginning of the notebook:
 from google.colab import drive
 drive.mount('/content/drive')
 ```
-- Clone this github repository:
+- Install the package using pip as before or clone this github repository and install the package using
 ```shell
 !git clone https://github.com/BIIG-UC3M/pMoSS.git
+!pip install /content/pMoSS/.
 ````
-- Install the requirements:
+- Modify the paths to access your data considering that your drive is mounted in Google Colab: 
 ```shell
-!pip install -r /content/pMoSS/requirements.txt
-````
-- Modify the first line of the notebook indicating the correct path: 
-
-  - If you cloned the repository:
-    ```shell
-    # Load the path containing all the functions to use pMoSS
-    from sys import path
-    path.append('/content/pMoSS/pMoSS/')
-    ````
-  - If you have the entire code in your drive:
-    ```shell
-    # Load the path containing all the functions to use pMoSS
-    from sys import path
-    path.append('/content/drive/My Drive/the_path_in_your_drive/pMoSS/pMoSS/')
-    ````
-- Update the path to the data indicating the correct path: 
-```shell
-path = r'/content/pMoSS/data/morphology/'
-````
-or
-```shell
-path = r'/content/drive/My Drive/path_to_the_data_in_your_drive/'
-````
-- If necessary, update the name of the data:
-```shell
-file_name = r'new_data.xlsx'
+path = '/content/MyDrive/path_to_the_data_in_your_drive/'
 ````
 You are ready to run the code in the notebook!
 
@@ -150,18 +129,6 @@ Python version and packages:
 * statsmodels>=0.9.0
 * glob2
 * pytest-shutil
-
-## Examples
-You can find examples of data analysis in the example folder. A Google Colab notebook is provided for a quick test.
-
-Please, note that the software is not implemented for GPU so Monte Carlo cross-validation takes quite a long time. The user can target the process by observing for a certain **n**-value, when a entire cross-validation has finished. 
-
-Get the latest version of the code in the [Releases](https://github.com/BIIG-UC3M/pMoSS/releases). There you will find a data.zip file which contains the estimated *p-values* of the examples:
-
-- *p-values* for the morphology changes with the increase of cellular age.
-- *p-values* for the morphology changes in cancer cells and their protrusions after being treated with Taxol.
-
-To avoid heavy computations and make a quick test of the code, download the data. Then, place it into the folder of the cloned repository, so the links in the notebooks work properly. Otherwise, change the links in the notebooks.
 
 ## Feedback and contributions
 - All kind of feedback is welcome. Specially if it supports the use of the code and a better understanding on how to work with it.
