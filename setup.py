@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setup(
     name='pmoss',
     packages=find_packages(include=['pmoss', 'pmoss.*']),
-    version='1.1.0',
+    version='1.1',
     license='BSD 3-Clause License',
     description='Python package to model the p-value as an n-dependent function using Monte Carlo cross-validation.',
     long_description=long_description,
