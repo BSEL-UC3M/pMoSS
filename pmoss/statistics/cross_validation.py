@@ -52,7 +52,7 @@ def get_grids(n0, Nmax, m, grid_size=None, k=None, initial_portion=None):
         np.linspace(np.log((m / n0) * initial_portion), np.log(final_fold), len(grid_n))
             )
     folds = folds.astype(np.int)
-    folds = folds[::-1]
+    folds = np.sort(folds)[::-1]
     return grid_n, folds
 
 def read_pvalues(file_list, temp_folder='../computed_pvalues/'):
