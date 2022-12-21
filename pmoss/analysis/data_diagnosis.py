@@ -12,8 +12,7 @@ import shutil
 from pmoss.utils import create_combination
 from pmoss.loaders import morphoparam
 from pmoss.statistics import cross_validated_pvalues
-from models.lowess_fit import decission_data_lowess
-from models.exponential_fit import decission_data_exponential
+from pmoss.models import decission_data_lowess, decission_data_exponential
 
 def get_decision_index(decission_param, data_features, combination_dict):
     Theta = pd.DataFrame()
