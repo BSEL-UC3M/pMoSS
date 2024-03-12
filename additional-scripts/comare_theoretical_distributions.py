@@ -45,10 +45,10 @@ def compare_dist(par1, par2, n0=None, ninf=None, Nmax=None, nsize=None, k=None, 
             sample2 = np.random.normal(loc=par2["mean"], scale=par2["std"], size=grid_n[i])
             pvalue = scipy.stats.mannwhitneyu(sample1,sample2)[1]
             
-            sampl1_name = 'normal_'+np.str(par1["mean"])+'_'+np.str(par1["std"])
-            sampl2_name = 'normal_'+np.str(par2["mean"])+'_'+np.str(par2["std"])
+            sampl1_name = 'normal_'+str(par1["mean"])+'_'+str(par1["std"])
+            sampl2_name = 'normal_'+str(par2["mean"])+'_'+str(par2["std"])
             df=pd.DataFrame()
-            df['N'] = [np.int(grid_n[i])]
+            df['N'] = [int(grid_n[i])]
             df['p_value'] = np.float64(pvalue)
             df['comparison'] = sampl1_name + '_' + sampl2_name
             df['test'] = 'MannWhitneyU'
@@ -105,7 +105,7 @@ def compare_dist(par1, par2, n0=None, ninf=None, Nmax=None, nsize=None, k=None, 
 ################################################################################
 #
 #for c in range(len(comparison)):
-#    pdata = data_cv[data_cv['comparison'] == comparison[np.str(c)]]
+#    pdata = data_cv[data_cv['comparison'] == comparison[str(c)]]
 ##
 ##    f = plt.gcf()
 ##    ax = plt.gca()
@@ -125,17 +125,17 @@ def compare_dist(par1, par2, n0=None, ninf=None, Nmax=None, nsize=None, k=None, 
 
 ##    sns.set_palette("winter",5)
 ##    #ax.legend(labels)
-##    plt.title('Normal(0,1) vs. Normal('+ np.str(mean_values[c]) + ',1)')
+##    plt.title('Normal(0,1) vs. Normal('+ str(mean_values[c]) + ',1)')
 ##    plt.show()    
     pdata_n = pd.DataFrame()
 #    num = [3, 5,10,15,30,45,60,90,200, 670,1485,2499]
     num = grid_n[np.concatenate((np.array([1,50,100,112,120,125,129,135,148,187,178,179,180,181,183]),np.arange(140,len(grid_n),2)))]
     for i in range(len(num)):
         # pdata_n = pdata[pdata['N'] == n_dist[i]]
-        aux = pdata[pdata['N'] == np.int(num[i])]
+        aux = pdata[pdata['N'] == int(num[i])]
         pdata_n = pd.concat([pdata_n,aux])
-#        print(np.mean(pdata_n['p_value'].astype(np.float)))
-    pdata_n['p_value'] = pdata_n['p_value'].astype(np.float)
+#        print(np.mean(pdata_n['p_value'].astype(float)))
+    pdata_n['p_value'] = pdata_n['p_value'].astype(float)
     f = plt.gcf()
     ax = plt.gca()
     f.set_figwidth(5)
@@ -151,14 +151,14 @@ def compare_dist(par1, par2, n0=None, ninf=None, Nmax=None, nsize=None, k=None, 
                     palette = reversed(sns.color_palette("rocket",len(num)+10)))
 #    sns.set_palette("winter",5)
     labels = num
-    plt.title('Normal(0,1) vs. Normal('+ np.str(mean_values[c]) + ',1)')
+    plt.title('Normal(0,1) vs. Normal('+ str(mean_values[c]) + ',1)')
     plt.xlabel('Sample size (n)')
     plt.ylabel('p-value')
     sns.set(font_scale = 1)
     sns.set_style("white")
     plt.show()
     f.savefig('C:/Users/egomez/Documents/Projectos/3D-PROTUCEL/DISCRIMINATIVE_ANALYSIS/FIGURES/'+
-               comparison[np.str(c)]+'.pdf', format='pdf', dpi = 350)
+               comparison[str(c)]+'.pdf', format='pdf', dpi = 350)
 ###
 ###############################################################################
 # Plot convergence parameters
@@ -279,17 +279,17 @@ table
 ##        ax = plt.gca()
 ##        f.set_figwidth(width)
 ##        f.set_figheight(height)
-#        df_comparison = df[df.comparison == combination[np.str(c)]]
-#        name = 'Normal(0,1) vs. Normal('+ np.str(mean_values[c]) + ',1)'
+#        df_comparison = df[df.comparison == combination[str(c)]]
+#        name = 'Normal(0,1) vs. Normal('+ str(mean_values[c]) + ',1)'
 #        mpl.style.use('seaborn')
 #        sns.set_style("white")
 #        sns.set_context("talk")
 #        splot  = ax
 ##        labels = ['A']                 
 #        for i in range(len(measure)):            
-#            df_measure = df_comparison[df_comparison.measure == measure[np.str(i)]]            
+#            df_measure = df_comparison[df_comparison.measure == measure[str(i)]]
 #            for t in range(len(test)):
-#                df_test = df_measure[df_measure.test == test[np.str(t)]]
+#                df_test = df_measure[df_measure.test == test[str(t)]]
 #                L, dcoeff, positive_N = determination_coeff(df_test, sign_level = sign_level)
 #               ## Obtain the derivative
 #                x = L[:,0]
@@ -303,7 +303,7 @@ table
 #                labels = np.concatenate((labels, [name + ' cocient']))
 #                ## Exponential fitting
 ##                splot.plot(L[:,0], L[:,1], color = ctheme[c])
-##                labels = np.concatenate((labels,[name + ' LOWESS (p(n))'])) # ' d = ' + np.str(dcoeff) + ' N = ' + np.str(positive_N)]))
+##                labels = np.concatenate((labels,[name + ' LOWESS (p(n))'])) # ' d = ' + str(dcoeff) + ' N = ' + str(positive_N)]))
 ##                
 ##                pop, prt = scipy.optimize.curve_fit(func_exp_pure,df_test['N'].astype(np.float),df_test['p_value'].astype(np.float), method = 'trf')
 ##                perr = np.sqrt(np.diag(prt))
@@ -313,12 +313,12 @@ table
 #                
 #    splot.tick_params(labelsize = fs)
 #    splot.legend(labels[1:], bbox_to_anchor=(1, 1),ncol = 1,fancybox=True, shadow=True, fontsize = fs) # loc='best', 
-##    splot.set_title(combination[np.str(c)], fontsize = fs)
+##    splot.set_title(combination[str(c)], fontsize = fs)
 #    splot.set_xlabel('Sample size (N)', fontsize = fs)
-#    splot.set_ylabel('p_value ', fontsize = fs) # + combination[np.str(c)], fontsize = fs)
+#    splot.set_ylabel('p_value ', fontsize = fs) # + combination[str(c)], fontsize = fs)
 #    splot.set_ylim([-0.17,0.17])    
 #    if save_fig == 1:
-#        plt.savefig(path + combination[np.str(c)] + file_name, format=file_name[-3:], dpi=350) 
+#        plt.savefig(path + combination[str(c)] + file_name, format=file_name[-3:], dpi=350)
 #    plt.show()
 ################################################################################
 
@@ -375,16 +375,16 @@ def grid_robustness(par1, par2, combination, measure, n0=None, ninf=None,
         else:
             aux_theta = get_decision_index(data_aux, measure, combination)
             Theta = pd.concat([Theta, aux_theta])
-        print('Iteration ' + np.str(i) + '/100 succeed. Resulting Theta: ' + np.str(aux_theta['normal Theta'][0]))
+        print('Iteration ' + str(i) + '/100 succeed. Resulting Theta: ' + str(aux_theta['normal Theta'][0]))
     #        if aux_theta['normal Theta'][0] == 0:
-    #            print('a: ' + np.str(data_aux.normal_exp_params[0][0]) + ', c: ' + np.str(data_aux.normal_exp_params[0][1]))
+    #            print('a: ' + str(data_aux.normal_exp_params[0][0]) + ', c: ' + str(data_aux.normal_exp_params[0][1]))
     #            plt.figure(figsize=(15,3))
     #            sns.boxplot(x='N', y='p_value', data = df)
     #            plt.show()
     result = np.zeros((len(measure), len(combination)))
     for m in range(len(measure)):
         for c in range(len(combination)):
-            aux = Theta[Theta['comparison'] == combination[np.str(c)]][measure[np.str(m)] + ' Theta']
+            aux = Theta[Theta['comparison'] == combination[str(c)]][measure[str(m)] + ' Theta']
             result[m, c] = np.mean(aux[0]) * 100
 
     ## Summary of data
@@ -438,7 +438,7 @@ np.random.seed(seed=23456)
 ##            df = compare_dist(par1, par2, n0=n0, ninf=ninf, nsize=nsize[s],
 ##                                            k=k,
 ##                                            initial_portion=initial_portion)
-#            comparison = {'0': normal_comparison[np.str(i)]}
+#            comparison = {'0': normal_comparison[str(i)]}
 #            print(comparison['0'])
 #            Theta, result = grid_robustness(par1, par2, comparison, measure, 
 #                                            n0=n0, ninf=ninf, nsize=nsize[s],
@@ -464,7 +464,7 @@ np.random.seed(seed=23456)
 ##results = pd.DataFrame()
 ##for g in gamma:
 ##    aux = pd.DataFrame()
-##    print('Gamma value '+ np.str(g))
+##    print('Gamma value '+ str(g))
 ##    print('Decission parameters for cell values')
 ##    decission_param_cell = decission_data_exponential(df_cell, combination, measure_cell, sign_level = 0.05, gamma = g)
 ##    Theta_cell = get_decision_index(decission_param_cell, measure_cell, combination)

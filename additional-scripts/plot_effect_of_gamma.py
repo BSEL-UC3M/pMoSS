@@ -49,7 +49,7 @@ alpha_par = 0.05
 # Create a vector with gamma values separated by powers of 10.
 up_gamma= 0.0005
 low_gamma=5.0e-08
-index = np.int(np.log10(up_gamma/low_gamma))
+index = int(np.log10(up_gamma/low_gamma))
 for i in range(index+1):
     aux = np.linspace(low_gamma*(10**i),low_gamma*(10**(i+1)),
                       endpoint=False, num=15)
@@ -150,7 +150,7 @@ plt.scatter(XC_coor, YC_coor, marker='o',c='black', s=100)
 plt.scatter(XP_coor,YP_coor, marker='P',c='magenta', s=100)
 plt.plot([x_alpha,x_alpha],[0,im.shape[0]], 'k--')
 plt.show()
-#fig.savefig('im_decision_gammavar_amax'+ np.str(up_a) + '_cmax' +  np.str(up_c) + '.eps', format='eps', dpi = 350)
+#fig.savefig('im_decision_gammavar_amax'+ str(up_a) + '_cmax' +  str(up_c) + '.eps', format='eps', dpi = 350)
 
 
 ###############################################################################
@@ -169,7 +169,7 @@ a, c = np.meshgrid(a, c)
 
 up_gamma = 0.1 
 low_gamma = 1.0e-12
-index = np.int(np.log10(up_gamma/low_gamma))
+index = int(np.log10(up_gamma/low_gamma))
 for i in range(index+1):
     aux = np.linspace(low_gamma*(10**i),low_gamma*(10**(i+1)), 
                       endpoint=False, num=5)
