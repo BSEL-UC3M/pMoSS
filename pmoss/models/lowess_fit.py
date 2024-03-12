@@ -20,7 +20,7 @@ def significance_analysis(df, sign_level = None):
     
     ymax = mean + yerr
     x = np.array(mean.index)
-    x = x.astype(np.int)                           
+    x = x.astype(int)
     # Save the data to fit a lowess regression
     dy = np.transpose(np.vstack((x,mean)))
       
@@ -81,29 +81,29 @@ def decission_data_lowess(df, combination_dict, data_features, sign_level = None
         gamma = 5e-06
             
     for c in range(len(combination_dict)): 
-        df_comparison = df[df.comparison == combination_dict[np.str(c)]]
+        df_comparison = df[df.comparison == combination_dict[str(c)]]
         aux = pd.DataFrame()
-        aux['comparison'] = [combination_dict[np.str(c)]]
+        aux['comparison'] = [combination_dict[str(c)]]
         
         for i in range(len(data_features)):
-            if data_features[np.str(i)] == 'protrusion_binary':
+            if data_features[str(i)] == 'protrusion_binary':
                 aux['test'] = 'ChiSquared'
             else:
                 aux['test'] = 'MannWhitneyU'
-            df_measure = df_comparison[df_comparison.measure == data_features[np.str(i)]]
+            df_measure = df_comparison[df_comparison.measure == data_features[str(i)]]
             L, d, Nsign = significance_analysis(df_measure, sign_level = sign_level)
 
-            aux[data_features[np.str(i)] + '_nalpha_estimated'] = [Nsign]
-            aux[data_features[np.str(i)] + '_d'] = [d]
+            aux[data_features[str(i)] + '_nalpha_estimated'] = [Nsign]
+            aux[data_features[str(i)] + '_d'] = [d]
 
             if d > 0:
                 convergence_d, convergence_N = convergence_analysis(L, gamma = gamma, sign_level = sign_level)
-                aux[data_features[np.str(i)] + '_convergence_N'] = [convergence_N]
-                aux[data_features[np.str(i)] + '_convergence_d'] = [convergence_d]
+                aux[data_features[str(i)] + '_convergence_N'] = [convergence_N]
+                aux[data_features[str(i)] + '_convergence_d'] = [convergence_d]
             else:
-                aux[data_features[np.str(i)] + '_convergence_N'] = ['NaN']
-                aux[data_features[np.str(i)] + '_convergence_d'] = ['NaN']
+                aux[data_features[str(i)] + '_convergence_N'] = ['NaN']
+                aux[data_features[str(i)] + '_convergence_d'] = ['NaN']
 
-                    # print(combination[np.str(c)])
+                    # print(combination[str(c)])
         decission_param = pd.concat([decission_param, aux])
     return decission_param

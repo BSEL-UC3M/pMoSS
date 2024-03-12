@@ -82,7 +82,7 @@ def nalpha_estimate(df, sign_level = None):
     
     ymax = mean + yerr
     x = np.array(mean.index)
-    x = x.astype(np.int)                           
+    x = x.astype(int)
     # Obtain the n-value such that all p-values are smaller than 0.05
     # (n-alpha in the manuscript)
     Nsign = x[(ymax-sign_level) <= 0]
@@ -105,18 +105,18 @@ def decission_data_exponential(df, combination_dict, data_features, sign_level =
     decission_param = pd.DataFrame()
             
     for c in range(len(combination_dict)): 
-        df_comparison = df[df.comparison == combination_dict[np.str(c)]]
+        df_comparison = df[df.comparison == combination_dict[str(c)]]
         aux = pd.DataFrame()
-        aux['comparison'] = [combination_dict[np.str(c)]]
-        
+        aux['comparison'] = [combination_dict[str(c)]]
+
         for i in range(len(data_features)):
-            if data_features[np.str(i)] == 'protrusion_binary':
+            if data_features[str(i)] == 'protrusion_binary':
                 aux['test'] = 'ChiSquared'
             else:
                 aux['test'] = 'MannWhitneyU'
 
-            df_measure = df_comparison[df_comparison.measure == data_features[np.str(i)]]
-            
+            df_measure = df_comparison[df_comparison.measure == data_features[str(i)]]
+
             if np.sum(df_measure['p_value'].astype(np.float)>sign_level)>0:
                 # Get the parameters of an exponential fit
                 pop,_ = scipy.optimize.curve_fit(func_exp_pure,df_measure['N'].astype(np.float),
@@ -155,11 +155,11 @@ def decission_data_exponential(df, combination_dict, data_features, sign_level =
                 convergence_d = np.inf
                 pop = [0.,0.] # The exponential function is equivalen to the null function. 
             # Store the values as a dataframe
-            aux[data_features[np.str(i)] + '_exp_params'] = [pop]
-            aux[data_features[np.str(i)] + '_nalpha_estimated'] = [nalpha_estimate(df_measure, sign_level = None)]
-            aux[data_features[np.str(i)] + '_nalpha_theory'] = [nalpha_theory(pop[0], pop[1], sign_level = None)]
-            aux[data_features[np.str(i)] + '_convergence_N'] = [convergence_N]
-            aux[data_features[np.str(i)] + '_convergence_d'] = [convergence_d]         
-            
+            aux[data_features[str(i)] + '_exp_params'] = [pop]
+            aux[data_features[str(i)] + '_nalpha_estimated'] = [nalpha_estimate(df_measure, sign_level = None)]
+            aux[data_features[str(i)] + '_nalpha_theory'] = [nalpha_theory(pop[0], pop[1], sign_level = None)]
+            aux[data_features[str(i)] + '_convergence_N'] = [convergence_N]
+            aux[data_features[str(i)] + '_convergence_d'] = [convergence_d]
+
         decission_param = pd.concat([decission_param, aux])
     return decission_param

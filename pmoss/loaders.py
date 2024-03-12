@@ -73,21 +73,21 @@ def load_pvalue_data(name, path = None):
 #                        '5': 'protrusion_number'}
 #    df_cell = pd.DataFrame()
 #    if cell_line == 'mammalian':# Mammalian cells (Praful)
-#        df_cell[cell_morpho[np.str(0)]] = data[:,4].astype(np.float32)
-#        df_cell[cell_morpho[np.str(1)]] = data[:,2].astype(np.float32)
-#        df_cell[cell_morpho[np.str(2)]] = data[:,1].astype(np.float32)
-#        df_cell[cell_morpho[np.str(3)]] = data[:,3].astype(np.float32)
-#        df_cell[cell_morpho[np.str(4)]] = data[:,0].astype(np.float32)
-#        df_cell[cell_morpho[np.str(5)]] = data[:,7]
+#        df_cell[cell_morpho[str(0)]] = data[:,4].astype(np.float32)
+#        df_cell[cell_morpho[str(1)]] = data[:,2].astype(np.float32)
+#        df_cell[cell_morpho[str(2)]] = data[:,1].astype(np.float32)
+#        df_cell[cell_morpho[str(3)]] = data[:,3].astype(np.float32)
+#        df_cell[cell_morpho[str(4)]] = data[:,0].astype(np.float32)
+#        df_cell[cell_morpho[str(5)]] = data[:,7]
 #        df_cell['Condition'] = data[:,5]
 #        df_cell['Video'] = data[:,6]
 #    elif cell_line == 'glioblastoma':# Glioblastoma cells
 #        for i in range(len(cell_morpho)):
-#            df_cell[cell_morpho[np.str(i)]] = data[:,i].astype(np.float32)
+#            df_cell[cell_morpho[str(i)]] = data[:,i].astype(np.float32)
 #        df_cell['Condition'] = data[:,i+1]
 #        df_cell['Video'] = data[:,i+2]
 #
-#    df_cell['protrusion_binary'] = df_cell.protrusion_number.astype(np.int)
+#    df_cell['protrusion_binary'] = df_cell.protrusion_number.astype(int)
 #    df_cell['protrusion_binary'][df_cell.protrusion_binary > 0.0] = 1
 #    cell_morpho ={'0': 'Cell body size microns',
 #                 '1': 'Cell body perimeter microns',
@@ -108,11 +108,11 @@ def load_pvalue_data(name, path = None):
 #        df_prot['Condition'] = data[:,0]
 #        df_prot['Video'] = data[:,1]
 #        for i in range(len(prot_morpho)):
-#            df_prot[prot_morpho[np.str(i)]] = data[:,i+2].astype(np.float32)
+#            df_prot[prot_morpho[str(i)]] = data[:,i+2].astype(np.float32)
 #
 #    elif cell_line == 'glioblastoma':# Glioblastoma cells (Alexandra)
 #        for i in range(len(prot_morpho)):
-#            df_prot[prot_morpho[np.str(i)]] = data[:,i].astype(np.float32)
+#            df_prot[prot_morpho[str(i)]] = data[:,i].astype(np.float32)
 #        df_prot['Condition'] = data[:,i+1]
 #        df_prot['Video'] = data[:,i+2]
 #
@@ -148,13 +148,13 @@ def morphoparam(file_name, path=None):
         data_features = dict()
 
         for i in range(len(variables)):
-            data_features[np.str(i)] = variables[i]
+            data_features[str(i)] = variables[i]
 
             # Obtain the labels of all the conditions to analyze
         group_labels = data.columns[0]
         group_labels = data.groupby([group_labels]).count()
         group_labels = group_labels.index.values
-        keys = np.arange(len(group_labels)).astype(np.str)
+        keys = np.arange(len(group_labels)).astype(str)
         group_labels = dict(zip(keys, group_labels))
 
     except OSError as e:

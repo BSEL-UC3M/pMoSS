@@ -20,7 +20,7 @@ def group_names(dir_name):
     folder.sort()
     condition = []
     for f in range(len(folder)):
-        condition = condition + [group(np.str(f),folder[f][len(dir_name)-1:])]
+        condition = condition + [group(str(f),folder[f][len(dir_name)-1:])]
     condition = dict([ (c.number, c.group) for c in condition ])
     
     return condition
@@ -41,9 +41,9 @@ def group_combination(dir_name):
         if c+1 < len(condition):
             
             for k in range(c+1,len(condition)):
-                combination = combination + [group_combine(np.str(count),
-                                            condition[np.str(c)], 
-                                            condition[np.str(k)])]
+                combination = combination + [group_combine(str(count),
+                                            condition[str(c)],
+                                            condition[str(k)])]
     
                 count = count + 1
 
@@ -59,7 +59,7 @@ def create_combination(group_dict):
     for c in range(len(group_dict)):
         if c+1 < len(group_dict):
             for k in range(c+1,len(group_dict)):
-                combination = combination + [group_combine(np.str(count),
+                combination = combination + [group_combine(str(count),
                                             group_dict[keys[c]], 
                                             group_dict[keys[k]])]
                 count = count + 1
