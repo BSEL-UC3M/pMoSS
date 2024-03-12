@@ -20,7 +20,7 @@ def get_Nmax(df, condition = None):
                   '5': 'LD_tax50'}
    Nmax = len(df)
    for  c in range(len(condition)):
-       aux = df[df['Condition'] == condition[np.str(c)]]['Condition']
+       aux = df[df['Condition'] == condition[str(c)]]['Condition']
        if len(aux) < Nmax:
            Nmax = len(aux)
    return Nmax
@@ -28,7 +28,7 @@ def get_Nmax(df, condition = None):
 def filter_dataframe(df, col_name, values):
     df_new = pd.DataFrame()
     for v in range(len(values)):
-        df_aux = df[df[col_name] == values[np.str(v)]]
+        df_aux = df[df[col_name] == values[str(v)]]
         df_new = pd.concat([df_new,df_aux])
     return df_new
 
@@ -49,7 +49,7 @@ def get_grids(n0, ninf, Nmax, nsize = None, k = None, initial_portion = None ):
         k = 20
     # Grid calculation
     grid_n = np.exp(np.linspace(np.round(np.log(n0)), np.log(ninf), nsize))
-    grid_n = grid_n.astype(np.int)
+    grid_n = grid_n.astype(int)
     grid_n = np.unique(grid_n)  
     if len(grid_n) < nsize:
         while nsize-len(grid_n)>0:
@@ -61,14 +61,14 @@ def get_grids(n0, ninf, Nmax, nsize = None, k = None, initial_portion = None ):
                 index = np.random.randint(len(diff_grid_n))
             a = grid_n[1:][index]
             b = grid_n[:-1][index]
-            c = np.int(b + (a-b)/2)
+            c = int(b + (a-b)/2)
             grid_n = np.insert(grid_n,-1,c)
             grid_n = np.unique(grid_n) 
     # folds i calculation from the grid
     final_fold = k*(Nmax/np.max(grid_n))
-    final_fold = np.int(final_fold)        
+    final_fold = int(final_fold)
     folds = np.exp(np.linspace(np.log((Nmax*initial_portion)/n0), np.log(final_fold),  len(grid_n)))     
-    folds = folds.astype(np.int)
+    folds = folds.astype(int)
 
     return grid_n, folds
 
@@ -88,12 +88,12 @@ def reduced_grids(grid_n, folds, nsize, portion, n0 = None, Nmax = None):
     reduced_folds = np.zeros(nsize)
     
     cnte = np.linspace(0,len(aux_grid)-1, nsize)
-    cnte = cnte.astype(np.int)
+    cnte = cnte.astype(int)
     for i in range(nsize):
         reduced_grid[i] = aux_grid[cnte[i]]
-        reduced_folds[i] = np.int(aux_folds[cnte[i]]*portion)
-    reduced_grid = reduced_grid.astype(np.int)
-    reduced_folds = reduced_folds.astype(np.int)    
+        reduced_folds[i] = int(aux_folds[cnte[i]]*portion)
+    reduced_grid = reduced_grid.astype(int)
+    reduced_folds = reduced_folds.astype(int)
     return reduced_grid, reduced_folds
        
 def reduced_data(df, grid_n, folds, datatype = None, measure = None, comparison = None, test = None):
@@ -123,9 +123,9 @@ def reduced_data(df, grid_n, folds, datatype = None, measure = None, comparison 
                           '2': 'length',
                           '3': 'diameter'}                
         for t in range(len(test)):
-            df_aux = df[df.test == test[np.str(t)]]
+            df_aux = df[df.test == test[str(t)]]
             for m in range(len(measure)):
-                df_aux_m = df_aux[df_aux.measure == measure[np.str(m)]]
+                df_aux_m = df_aux[df_aux.measure == measure[str(m)]]
                 for p in range(len(grid_n)):        
                     n_sample = df_aux_m[df_aux_m.N == grid_n[p]].groupby('comparison').apply(lambda x: x.sample(n = folds[p]))
                     reduced_df = [reduced_df, n_sample]
@@ -156,9 +156,9 @@ def results_reduced_data(df, combination, measure, test, grid_n, folds, datatype
     result = np.zeros((len(measure), len(combination)))                
     for m in range(len(measure)):
         for c in range(len(combination)):
-            aux = Theta[Theta['comparison'] == combination[np.str(c)]][measure[np.str(m)] + ' Theta']
+            aux = Theta[Theta['comparison'] == combination[str(c)]][measure[str(m)] + ' Theta']
             result[m,c] = np.mean(aux[0])*100
-#        print(combination[np.str(c)])
-#        print(measure[np.str(m)])
+#        print(combination[str(c)])
+#        print(measure[str(m)])
 #        print(np.mean(aux[0]))
     return Theta, result

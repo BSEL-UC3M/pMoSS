@@ -63,11 +63,11 @@ def pvalues_continuous(df, group_dict, measure_name, ni, foldsi, test = None):
                 for k in range(c+1,len(group_dict)):     
                     
                         # Statistical test 
-                        df_p_aux = compare_continuous_samples(sample, group_dict[np.str(c)], group_dict[np.str(k)], measure_name, test = test)                        
+                        df_p_aux = compare_continuous_samples(sample, group_dict[str(c)], group_dict[str(k)], measure_name, test = test)
                         df_p_aux['N'] = ni
                         
                         # Save the name of the calculated comparison
-                        df_p_aux['comparison'] = group_dict[np.str(c)] + '_' + group_dict[np.str(k)]
+                        df_p_aux['comparison'] = group_dict[str(c)] + '_' + group_dict[str(k)]
                         frames = [df_p, df_p_aux]
                         df_p = pd.concat(frames)
        
@@ -83,10 +83,10 @@ def obtain_pvalues_ChiSquared(df, group_dict, ni, foldsi):
         observed_protrusions = cell_protrusion_tb.ix[:len(group_dict),:2]
                                                           
         aux_0 = observed_protrusions[0] == 0
-        aux_0 = aux_0.astype(np.int)
+        aux_0 = aux_0.astype(int)
                                                           
         aux_1 = observed_protrusions[1] == 0
-        aux_1 = aux_1.astype(np.int)
+        aux_1 = aux_1.astype(int)
         
         if np.sum(aux_0) == 0 and np.sum(aux_1) == 0: # Be sure that there is something to compare different from zero
             for c in range(len(group_dict)):
@@ -97,7 +97,7 @@ def obtain_pvalues_ChiSquared(df, group_dict, ni, foldsi):
                         sampleA = 100*cell_protrusion_tb.ix[c,0:2]/cell_protrusion_tb.ix[c,2]
                         sampleB = 100*cell_protrusion_tb.ix[k,0:2]/cell_protrusion_tb.ix[k,2]
                         observed = pd.DataFrame([np.array(sampleA), np.array(sampleB)], 
-                                index = [group_dict[np.str(c)], group_dict[np.str(k)]])
+                                index = [group_dict[str(c)], group_dict[str(k)]])
                         
                         # Statistical test.
                         st, p, h0, expected = scipy.stats.chi2_contingency(observed = observed)
@@ -105,7 +105,7 @@ def obtain_pvalues_ChiSquared(df, group_dict, ni, foldsi):
                         # Save the data.
                         df_p_aux['p_value'] = [p]
                         df_p_aux['N'] = ni
-                        df_p_aux['comparison'] = group_dict[np.str(c)] + '_' + group_dict[np.str(k)]
+                        df_p_aux['comparison'] = group_dict[str(c)] + '_' + group_dict[str(k)]
                         frames = [df_p, df_p_aux]
                         df_p = pd.concat(frames)
         else: 

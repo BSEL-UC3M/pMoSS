@@ -18,7 +18,7 @@ def get_datasize(df, group, group_dict):
 
     m = 0.
     for c in range(len(group_dict)):
-        aux = df[df[group] == group_dict[np.str(c)]][group]
+        aux = df[df[group] == group_dict[str(c)]][group]
         # if len(aux) < m:
         if len(aux) > m:
             m = len(aux)
@@ -42,16 +42,16 @@ def get_grids(n0, Nmax, m, grid_size=None, k=None, initial_portion=None):
         k = 20
     # Grid calculation
     grid_n = np.exp(np.linspace(np.round(np.log(n0)), np.log(Nmax), grid_size))
-    grid_n = grid_n.astype(np.int)
+    grid_n = grid_n.astype(int)
     grid_n = np.unique(grid_n)
 
     # folds i calculation from the grid
     final_fold = k * (m / min(m, np.max(grid_n)))
-    final_fold = np.int(final_fold)
+    final_fold = int(final_fold)
     folds = np.exp(
         np.linspace(np.log((m / n0) * initial_portion), np.log(final_fold), len(grid_n))
             )
-    folds = folds.astype(np.int)
+    folds = folds.astype(int)
     folds = np.sort(folds)[::-1]
     return grid_n, folds
 
@@ -103,13 +103,13 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
             for k in range(c+1,len(group_dict)):
                 df_pvalues = pd.DataFrame()
 
-                sampleA =df[df.Condition==group_dict[np.str(c)]]
-                sampleB =df[df.Condition==group_dict[np.str(k)]]
+                sampleA =df[df.Condition==group_dict[str(c)]]
+                sampleB =df[df.Condition==group_dict[str(k)]]
                 l = min(len(sampleA), len(sampleB))
                 
                 grid_n_l = grid_n[grid_n<=l]
                 folds_l = folds[grid_n<=l]
-                print('comparison: ' + group_dict[np.str(c)] + '_' + group_dict[np.str(k)])
+                print('comparison: ' + group_dict[str(c)] + '_' + group_dict[str(k)])
                 for ni in range(len(grid_n_l)):
                     for epoch in range(folds_l[ni]):
                         
@@ -117,7 +117,7 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                         subB = sampleB.groupby('Condition').apply(lambda x: x.sample(n = grid_n_l[ni]))
 
                         for m in range(len(data_features)):    
-                            if data_features[np.str(m)] == 'protrusion_binary': 
+                            if data_features[str(m)] == 'protrusion_binary':
                                 # Categorical variable and requires a different test.
                                 observed_A = np.array([0,0])
                                 observed_B = np.array([0,0])
@@ -125,10 +125,10 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                                 while observed_A[0]+observed_B[0] == 0 or observed_A[1]+observed_B[1] == 0:
                                     subA = sampleA.groupby('Condition').apply(lambda x: x.sample(n = grid_n_l[ni]))
                                     subB = sampleB.groupby('Condition').apply(lambda x: x.sample(n = grid_n_l[ni]))
-                                    auxA = subA['protrusion_binary'][group_dict[np.str(c)]]
-                                    auxA = auxA.astype(np.float)
-                                    auxB = subB['protrusion_binary'][group_dict[np.str(k)]]
-                                    auxB = auxB.astype(np.float)
+                                    auxA = subA['protrusion_binary'][group_dict[str(c)]]
+                                    auxA = auxA.astype(float)
+                                    auxB = subB['protrusion_binary'][group_dict[str(k)]]
+                                    auxB = auxB.astype(float)
                                     # Portions of "1" and "0" are calculated.
                                     observed_A = np.array([ len(auxA) - sum(auxA) ,
                                                            sum(auxA),  len(auxA)])
@@ -137,7 +137,7 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                                     observed_A = 100*observed_A[0:2]/observed_A[2]
                                     observed_B = 100*observed_B[0:2]/observed_B[2]                                
                                     observed = pd.DataFrame([np.array(observed_A), np.array(observed_B)], 
-                                                            index = [group_dict[np.str(c)], group_dict[np.str(k)]])
+                                                            index = [group_dict[str(c)], group_dict[str(k)]])
 
                                 # Statistical test.
                                 st, p, h0, expected = scipy.stats.chi2_contingency(observed = observed)
@@ -145,23 +145,23 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                                 df_p_aux = pd.DataFrame()
                                 df_p_aux['p_value'] = [p]
                                 df_p_aux['N'] = grid_n_l[ni]
-                                df_p_aux['comparison'] = group_dict[np.str(c)] + '_' + group_dict[np.str(k)]
+                                df_p_aux['comparison'] = group_dict[str(c)] + '_' + group_dict[str(k)]
                                 df_p_aux['test'] = 'ChiSquared'
-                                df_p_aux['measure'] = data_features[np.str(m)]
+                                df_p_aux['measure'] = data_features[str(m)]
                                 frames = [df_pvalues, df_p_aux]
                                 df_pvalues = pd.concat(frames)
 
                                 
-                            elif data_features[np.str(m)] != 'protrusion_number':   
+                            elif data_features[str(m)] != 'protrusion_number':
                                 diff = 0.0
                                 # Data to compare cannot be exactly equal
                                 while diff == 0.0:
                                     subA = sampleA.groupby('Condition').apply(lambda x: x.sample(n = grid_n_l[ni]))
                                     subB = sampleB.groupby('Condition').apply(lambda x: x.sample(n = grid_n_l[ni]))
-                                    auxA = subA[data_features[np.str(m)]][group_dict[np.str(c)]]
-                                    auxA = auxA.astype(np.float)
-                                    auxB = subB[data_features[np.str(m)]][group_dict[np.str(k)]]
-                                    auxB = auxB.astype(np.float)
+                                    auxA = subA[data_features[str(m)]][group_dict[str(c)]]
+                                    auxA = auxA.astype(float)
+                                    auxB = subB[data_features[str(m)]][group_dict[str(k)]]
+                                    auxB = auxB.astype(float)
                                     diff = round(np.sum(auxB.values-auxA.values),3)
                                 df_p_aux = pd.DataFrame()
 
@@ -183,15 +183,15 @@ def cross_validated_pvalues(df, data_features, group_dict, grid_size, n0, Nmax, 
                                 df_p_aux['N'] = grid_n_l[ni]
 
                                 # Save the name of the calculated comparison
-                                df_p_aux['comparison'] = group_dict[np.str(c)] + '_' + group_dict[np.str(k)]
+                                df_p_aux['comparison'] = group_dict[str(c)] + '_' + group_dict[str(k)]
                                 df_p_aux['test'] = 'MannWhitneyU'
-                                df_p_aux['measure'] = data_features[np.str(m)] 
+                                df_p_aux['measure'] = data_features[str(m)]
                                 frames = [df_pvalues, df_p_aux]
                                 df_pvalues = pd.concat(frames)
                     print('Cross validation with N = ', grid_n_l[ni], ' and folds = ', folds_l[ni], ' finished.')
                 
                 # Store p-values after cross validation to release memory. 
-                file_name = group_dict[np.str(c)] + '_' + group_dict[np.str(k)] + '_pvalues.npy'
+                file_name = group_dict[str(c)] + '_' + group_dict[str(k)] + '_pvalues.npy'
                 np.save(os.path.join(temp_folder, file_name), df_pvalues)
                 file_list.append(file_name)
     # Read all saved p-values from '../computed_pvalues/'            
@@ -207,10 +207,10 @@ def get_comparison_list(group_dict, test = None):
     for c in range(len(group_dict)):
         if c+1 < len(group_dict):
             for k in range(c+1,len(group_dict)):
-                print('comparison: ' + group_dict[np.str(c)] + '_' + group_dict[np.str(k)])
+                print('comparison: ' + group_dict[str(c)] + '_' + group_dict[str(k)])
                                 
                 # Store p-values after cross validation and save some memory
-                file_name = [group_dict[np.str(c)] + '_' + group_dict[np.str(k)] + '_pvalues.npy']
+                file_name = [group_dict[str(c)] + '_' + group_dict[str(k)] + '_pvalues.npy']
                 file_name = pd.DataFrame(file_name)
                 file_list = pd.concat([file_list,file_name])
                          
