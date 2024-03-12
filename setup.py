@@ -15,7 +15,7 @@ setup(
     author="E. Gomez-de-Mariscal, V. Guerrero, A. Sneider, H. Hayatilaka, J.M. Phillip, D. Wirtz, A. Munoz-Barrutia",
     author_email='egomez@igc.gulbenkian.pt, mamunozb@ing.uc3m.es',
     url='https://github.com/BIIG-UC3M/pMoSS',
-    download_url='https://github.com/BIIG-UC3M/pMoSS/archive/refs/tags/v2.0.tar.gz',
+    download_url='https://github.com/BIIG-UC3M/pMoSS/archive/refs/tags/v2.1.tar.gz',
     keywords=['p-value', 'monte-carlo', 'statistical significance', 'null hypothesis testing', 'statistical test'],
     python_requires='>=3.9',
     install_requires=[
