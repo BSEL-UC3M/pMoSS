@@ -50,7 +50,7 @@ def convergence_analysis(L, gamma = None, sign_level = None):
     
     x = L[:,0]
     y = L[:,1]
-    dy = np.zeros(y.shape,np.float)
+    dy = np.zeros(y.shape,float)
     dy[0:-1] = np.diff(y)/np.diff(x)
     dy[-1] = (y[-1] - y[-2])/(x[-1] - x[-2])
     

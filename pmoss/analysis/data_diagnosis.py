@@ -23,8 +23,8 @@ def get_decision_index(decission_param, data_features, combination_dict):
             aux = decission_param[decission_param.comparison == combination_dict[str(c)]][
                 data_features[str(m)] + '_convergence_d']
             aux = aux.values[0]
-            if ~np.isnan(np.float(aux)):
-                Theta_2[data_features[str(m)] + ' Theta'] = [np.float(aux >= 0)]
+            if ~np.isnan(float(aux)):
+                Theta_2[data_features[str(m)] + ' Theta'] = [float(aux >= 0)]
             else:
                 Theta_2[data_features[str(m)] + ' Theta'] = [0]
             Theta_2[data_features[str(m)] + ' Theta'] = Theta_2[data_features[str(m)] + ' Theta'].astype(int)

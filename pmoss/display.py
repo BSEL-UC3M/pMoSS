@@ -564,7 +564,7 @@ def scatterplot_decrease_parameters(df, combination,measure,plot_type="exp-param
 #            par_a,par_c= (param1[measure[str(i)]+'_exp_params'][0])
 #            dist = (param1[measure[str(i)] + '_convergence_d'][0])
 #            mean_value = combination[str(c)]
-#            mean_value = np.float(mean_value[18:mean_value.find('_',19)])
+#            mean_value = float(mean_value[18:mean_value.find('_',19)])
 #            
 #            if dist == np.inf:
 #                 markers = 's'

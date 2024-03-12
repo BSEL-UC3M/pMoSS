@@ -73,17 +73,17 @@ def load_pvalue_data(name, path = None):
 #                        '5': 'protrusion_number'}
 #    df_cell = pd.DataFrame()
 #    if cell_line == 'mammalian':# Mammalian cells (Praful)
-#        df_cell[cell_morpho[str(0)]] = data[:,4].astype(np.float32)
-#        df_cell[cell_morpho[str(1)]] = data[:,2].astype(np.float32)
-#        df_cell[cell_morpho[str(2)]] = data[:,1].astype(np.float32)
-#        df_cell[cell_morpho[str(3)]] = data[:,3].astype(np.float32)
-#        df_cell[cell_morpho[str(4)]] = data[:,0].astype(np.float32)
+#        df_cell[cell_morpho[str(0)]] = data[:,4].astype(float32)
+#        df_cell[cell_morpho[str(1)]] = data[:,2].astype(float32)
+#        df_cell[cell_morpho[str(2)]] = data[:,1].astype(float32)
+#        df_cell[cell_morpho[str(3)]] = data[:,3].astype(float32)
+#        df_cell[cell_morpho[str(4)]] = data[:,0].astype(float32)
 #        df_cell[cell_morpho[str(5)]] = data[:,7]
 #        df_cell['Condition'] = data[:,5]
 #        df_cell['Video'] = data[:,6]
 #    elif cell_line == 'glioblastoma':# Glioblastoma cells
 #        for i in range(len(cell_morpho)):
-#            df_cell[cell_morpho[str(i)]] = data[:,i].astype(np.float32)
+#            df_cell[cell_morpho[str(i)]] = data[:,i].astype(float32)
 #        df_cell['Condition'] = data[:,i+1]
 #        df_cell['Video'] = data[:,i+2]
 #
@@ -108,11 +108,11 @@ def load_pvalue_data(name, path = None):
 #        df_prot['Condition'] = data[:,0]
 #        df_prot['Video'] = data[:,1]
 #        for i in range(len(prot_morpho)):
-#            df_prot[prot_morpho[str(i)]] = data[:,i+2].astype(np.float32)
+#            df_prot[prot_morpho[str(i)]] = data[:,i+2].astype(float32)
 #
 #    elif cell_line == 'glioblastoma':# Glioblastoma cells (Alexandra)
 #        for i in range(len(prot_morpho)):
-#            df_prot[prot_morpho[str(i)]] = data[:,i].astype(np.float32)
+#            df_prot[prot_morpho[str(i)]] = data[:,i].astype(float32)
 #        df_prot['Condition'] = data[:,i+1]
 #        df_prot['Video'] = data[:,i+2]
 #

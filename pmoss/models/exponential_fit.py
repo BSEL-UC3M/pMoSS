@@ -117,10 +117,10 @@ def decission_data_exponential(df, combination_dict, data_features, sign_level =
 
             df_measure = df_comparison[df_comparison.measure == data_features[str(i)]]
 
-            if np.sum(df_measure['p_value'].astype(np.float)>sign_level)>0:
+            if np.sum(df_measure['p_value'].astype(float)>sign_level)>0:
                 # Get the parameters of an exponential fit
-                pop,_ = scipy.optimize.curve_fit(func_exp_pure,df_measure['N'].astype(np.float),
-                                                 df_measure['p_value'].astype(np.float),
+                pop,_ = scipy.optimize.curve_fit(func_exp_pure,df_measure['N'].astype(float),
+                                                 df_measure['p_value'].astype(float),
                                                  method = 'trf',
                                                  bounds=([0.,0.],[1., np.inf]))
             
